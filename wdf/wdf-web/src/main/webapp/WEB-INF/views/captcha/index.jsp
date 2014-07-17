@@ -14,14 +14,22 @@
 <script>
 $(document).ready(function(){
 	$("#reCaptcha").click( function() {
-		$("#captcha").attr('src', 'http://railway.hinet.net/ImageOut.jsp?pageRandom=' + Math.random());
+		var options = {
+			id		: 'captchaForm',
+			url 	: 'captcha.reCaptcha',
+ 			success	: function(data) {
+ 				$("#captcha").attr('src', 'data:image/png;base64, ' + data);
+			}
+		};
+		$("#captchaForm").ajaxSubmit(options);
 	});
+	
 	$("#pImg").click(function() {
 		var options = {
 			id		: 'captchaForm',
 			url 	: 'captcha.process',
  			success	: function(data) {
- 				alert(data);
+ 				$("#captcha").attr('src', 'data:image/png;base64, ' + data);
 			}
 		};
 		$("#captchaForm").ajaxSubmit(options);
@@ -38,11 +46,9 @@ $(document).ready(function(){
 			<form:form id="captchaForm" name="captchaForm" action="/captcha.process" method="GET">
 			<ul>
 				<li>
-					<div id="oldImg"><input type="image" id="captcha" name="captcha" src="http://railway.hinet.net/ImageOut.jsp?pageRandom=1" /></div>
+					<div id="oldImg"><img id="captcha" name="captcha" src="" /></div>
 					<div id="processImg">
-						<script>
-							document.select("div#captcha");
-						</script>
+					
 					</div></li>
 				<li>
 					<input type="button" id="reCaptcha" name="reCaptcha" value="Re CAPTCHA" /></li>

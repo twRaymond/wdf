@@ -18,5 +18,5 @@
 	</bean>
 	<mvc:annotation-driven />
 	
-	<context:component-scan base-package="com.wdf.web.controller, com.wdf.service" />
+	<context:component-scan base-package="com.wdf.web.controller, com.wdf.service, com.wdf.rest" />
 </beans>

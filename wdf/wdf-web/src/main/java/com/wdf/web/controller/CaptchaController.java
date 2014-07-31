@@ -27,7 +27,7 @@ public class CaptchaController {
 	@RequestMapping(value = "/captcha.reCaptcha", method = RequestMethod.GET)
 	public String reCaptcha(HttpServletRequest request,
 			HttpServletResponse response, Model model) throws IOException {
-		response.setContentType("image/jpeg");
+		response.setContentType("json");
 		response.setHeader("Cache-Control", "nocache");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().print(service.saveImg());
@@ -37,7 +37,7 @@ public class CaptchaController {
 	@RequestMapping(value = "/captcha.process", method = RequestMethod.GET)
 	public String process(HttpServletRequest request,
 			HttpServletResponse response, Model model) throws IOException {
-		response.setContentType("image/jpeg");
+		response.setContentType("json");
 		response.setHeader("Cache-Control", "nocache");
 		response.setCharacterEncoding("utf-8");
 		response.getWriter().print(service.doGray(request.getParameter("tmpCapId")));

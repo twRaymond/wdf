@@ -13,12 +13,15 @@
 <title></title>
 <script>
 $(document).ready(function(){
+	var imageObj;
 	$("#reCaptcha").click( function() {
 		var options = {
 			id		: 'captchaForm',
 			url 	: 'captcha.reCaptcha',
- 			success	: function(data) {
- 				$("#captcha").attr('src', 'data:image/png;base64, ' + data);
+			dataType: 'json',
+ 			success	: function(obj) {
+ 				imageObj = obj;
+ 				$("#captcha").attr('src', 'data:image/png;base64, ' + obj.base64Code);
 			}
 		};
 		$("#captchaForm").ajaxSubmit(options);
@@ -27,9 +30,10 @@ $(document).ready(function(){
 	$("#pImg").click(function() {
 		var options = {
 			id		: 'captchaForm',
-			url 	: 'captcha.process',
- 			success	: function(data) {
- 				$("#captcha").attr('src', 'data:image/png;base64, ' + data);
+			url 	: 'captcha.process?tmpCapId=' + imageObj.Id,
+			dataType: 'json',
+ 			success	: function(obj) {
+ 				$("#captchaP").attr('src', 'data:image/png;base64, ' + obj.base64Code);
 			}
 		};
 		$("#captchaForm").ajaxSubmit(options);
@@ -47,9 +51,7 @@ $(document).ready(function(){
 			<ul>
 				<li>
 					<div id="oldImg"><img id="captcha" name="captcha" src="" /></div>
-					<div id="processImg">
-					
-					</div></li>
+					<div id="processImg"><img id="captchaP" name="captchaP" src="" /></div></li>
 				<li>
 					<input type="button" id="reCaptcha" name="reCaptcha" value="Re CAPTCHA" /></li>
 				<li>
